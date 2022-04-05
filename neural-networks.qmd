@@ -1,0 +1,25 @@
+# Neural Networks
+
+
+## Basic Structure
+
+Below is a very simple neural network:
+
+![](assets/neural-networks/perceptron.png)
+
+The meanings of these symbols:
+
+- $x_1$ and $x_2$ are the input.
+- $w_1$ and $w_2$ are weights.
+- $y$ is the output.
+
+The computation in the neural network:
+
+- $a = x_1 w_1 + x_2 w_2 + b$
+- $y = h(a)$
+
+Explanations:
+
+- $a$ is the weighted sum of the input.
+- $b$ is bias.
+- $h(x)$ is activation function.
