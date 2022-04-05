@@ -87,8 +87,7 @@ plt.plot(x, y)
 plt.show()
 ```
 
-**Softmax function** is used in output layers and is
-for multi-class classification problems:
+**Softmax function** is used in output layers and is for multi-class classification problems:
 
 $$y_k = \frac{\mathrm{exp}(a_k)}{
 \displaystyle\sum^{n}_{i = 1} \mathrm{exp}(a_i)}$$
