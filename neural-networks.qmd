@@ -62,7 +62,7 @@ plt.plot(x, y)
 plt.show()
 ```
 
-**Rectified Linear Unit** (ReLU):
+**Rectified linear unit** (ReLU):
 
 $$h(x) =
 \begin{cases}
