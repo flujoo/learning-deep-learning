@@ -1,0 +1,15 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "Learning Deep Learning"
+  chapters:
+    - index.qmd
+    - neural-networks.qmd
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
