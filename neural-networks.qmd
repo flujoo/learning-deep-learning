@@ -7,6 +7,11 @@ format:
     fig-height: 3
 ---
 
+```{python}
+import numpy as np
+import matplotlib.pylab as plt
+```
+
 
 ## Basic Structure
 
@@ -41,11 +46,6 @@ Here we introduce three common activation functions.
 $$\displaystyle h(x) = \frac{1}{1 + \mathrm{exp}(-x)}$$
 
 Implement it:
-
-```{python}
-import numpy as np
-import matplotlib.pylab as plt
-```
 
 ```{python}
 def sigmoid(x):
