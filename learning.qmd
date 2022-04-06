@@ -1,0 +1,52 @@
+# Learning
+
+The learning of a neural network is the process of finding the weights that produce some minimum value of its loss function.
+
+
+## Loss Functions
+
+The loss function of a neural network is a negative indicator of its accuracy. It measures the distance between the supervised data and the output of the neural network.
+
+Here we introduce two loss functions.
+
+**Mean squared error**:
+
+$$\displaystyle E =
+\sum_{k} (y_k - t_k)^2$$
+
+The meanings of these symbols:
+
+- $k$ is the dimension of the data.
+- $y_k$ is the output.
+- $t_k$ is the supervised data.
+
+**Cross entropy error**:
+
+$$\displaystyle E =
+- \sum_{k} t_k \: \mathrm{log} \, y_k$$
+
+Let's try to understand the cross entropy error. For one-hot data, $t_{some} = 1$ for some dimension, while $t_k = 0$ for other dimensions. Therefore, the formula can be reduced to $E = - \mathrm{log} \, y_{some}$, and the larger $y_{some}$ is, the lower $E$ will be. When $y_{some} = 1$, $E = 0$. This makes perfect sense.
+
+
+## Gradient Method
+
+Gradient method is the algorithm for finding the weights that produce some minimum value of a neural network's loss function. 
+
+Gradient? Let's first recall the definition of **derivative**:
+
+$$\displaystyle \frac{\mathrm{d}f(x)}{\mathrm{d}x}
+= \lim\limits_{h \to 0} \frac{f(x+h) - f(x)}{h}$$
+
+For a multivariate function, we can find its derivative with respect to some variable by treating other variables as constants. The outcome is called **partial derivative**.
+
+Finally, the **gradient** of a function is the vector of its partial derivatives:
+
+$$\nabla f = \left(\frac{\partial f}{\partial x_0},
+\frac{\partial f}{\partial x_1}, \dots \right)$$
+
+Gradient method steps:
+
+1. Suppose you are at a point of $f$.
+2. Calculate the gradient of this point.
+3. Move a little bit against the gradient.
+4. Repeat step 2 and 3 until reach a local minimum.
