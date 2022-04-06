@@ -1,5 +1,9 @@
 # Learning
 
+```{python}
+import numpy as np
+```
+
 The learning of a neural network is the process of finding the weights that produce some minimum value of its loss function.
 
 
@@ -50,3 +54,61 @@ Gradient method steps:
 2. Calculate the gradient of this point.
 3. Move a little bit against the gradient.
 4. Repeat step 2 and 3 until reach a local minimum.
+
+
+## Implementation
+
+First, let's implement a function for numerical differentiation. **Differentiation** is the process of finding the derivative of a function.
+
+```{python}
+def differentiate(f, x):
+  h = 1e-4
+  d = (f(x+h) - f(x-h)) / (2*h)
+  return d
+```
+
+Try it on $f(x) = x^2$ at $x = 2$. Its derivative is $f'(x) = 2x$, so the outcome should be $4$:
+
+```{python}
+differentiate(lambda x: x**2, 2)
+```
+
+Second, let's implement a function for calculating gradient:
+
+```{python}
+def gradient(f, x):
+  e = 1e-4
+  g = np.zeros_like(x, float)
+
+  for i, _ in enumerate(x):
+    h = np.zeros_like(x, float)
+    h[i] = e
+    g[i] = (f(x+h) - f(x-h)) / (2*e)
+
+  return g
+```
+
+Try it on $f(x_0, x_1) = x_0^2 + x_1^2$ at $x_0 = 2$ and $x_1 = 3$. Its gradient is $(2x_0, 2x_1)$, so the outcome should be $(4, 6)$:
+
+```{python}
+gradient(lambda x: x[0]**2 + x[1]**2, np.array([2, 3]))
+```
+
+Finally, let's implement the gradient method:
+
+```{python}
+def gradient_method(f, x, rate=0.1, step=100):
+  for i in range(step):
+    g = gradient(f, x)
+    x = x - g*rate
+
+  return x
+```
+
+`rate` is **learning rate**.
+
+Find the $(x_0, x_1)$ where $f(x_0, x_1) = x_0^2 + x_1^2$ has its minimum:
+
+```{python}
+gradient_method(lambda x: x[0]**2 + x[1]**2, np.array([-3, 4]))
+```
