@@ -232,7 +232,7 @@
 <p>Try it on <span class="math inline">\(f(x) = x^2\)</span> at <span class="math inline">\(x = 2\)</span>. Its derivative is <span class="math inline">\(f'(x) = 2x\)</span>, so the outcome should be <span class="math inline">\(4\)</span>:</p>
 <div class="cell" data-execution_count="3">
 <div class="sourceCode" id="cb3"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>differentiate(<span class="kw">lambda</span> x: x<span class="op">**</span><span class="dv">2</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display" data-execution_count="73">
+<div class="cell-output-display" data-execution_count="3">
 <pre><code>4.000000000004</code></pre>
 </div>
 </div>
@@ -252,7 +252,7 @@
 <p>Try it on <span class="math inline">\(f(x_0, x_1) = x_0^2 + x_1^2\)</span> at <span class="math inline">\(x_0 = 2\)</span> and <span class="math inline">\(x_1 = 3\)</span>. Its gradient is <span class="math inline">\((2x_0, 2x_1)\)</span>, so the outcome should be <span class="math inline">\((4, 6)\)</span>:</p>
 <div class="cell" data-execution_count="5">
 <div class="sourceCode" id="cb6"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>gradient(<span class="kw">lambda</span> x: x[<span class="dv">0</span>]<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> x[<span class="dv">1</span>]<span class="op">**</span><span class="dv">2</span>, np.array([<span class="dv">2</span>, <span class="dv">3</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display" data-execution_count="75">
+<div class="cell-output-display" data-execution_count="5">
 <pre><code>array([4., 6.])</code></pre>
 </div>
 </div>
@@ -269,7 +269,7 @@
 <p>Find the <span class="math inline">\((x_0, x_1)\)</span> where <span class="math inline">\(f(x_0, x_1) = x_0^2 + x_1^2\)</span> has its minimum:</p>
 <div class="cell" data-execution_count="7">
 <div class="sourceCode" id="cb9"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>gradient_method(<span class="kw">lambda</span> x: x[<span class="dv">0</span>]<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> x[<span class="dv">1</span>]<span class="op">**</span><span class="dv">2</span>, np.array([<span class="op">-</span><span class="dv">3</span>, <span class="dv">4</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display" data-execution_count="77">
+<div class="cell-output-display" data-execution_count="7">
 <pre><code>array([-6.11110793e-10,  8.14814391e-10])</code></pre>
 </div>
 </div>
