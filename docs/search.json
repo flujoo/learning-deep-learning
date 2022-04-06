@@ -1,0 +1,121 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Learning Deep Learning",
+    "section": "",
+    "text": "A deep learning textbook for myself."
+  },
+  {
+    "objectID": "intro.html",
+    "href": "intro.html",
+    "title": "1  Introduction",
+    "section": "",
+    "text": "See Knuth (1984) for additional discussion of literate programming.\n\n\n\n\n\nKnuth, Donald E. 1984. “Literate Programming.” Comput. J. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97."
+  },
+  {
+    "objectID": "summary.html",
+    "href": "summary.html",
+    "title": "2  Summary",
+    "section": "",
+    "text": "In summary, this book has no content whatsoever."
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "Knuth, Donald E. 1984. “Literate Programming.” Comput.\nJ. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97."
+  },
+  {
+    "objectID": "nns.html",
+    "href": "nns.html",
+    "title": "1  Neural Networks",
+    "section": "",
+    "text": "Below is a very simple neural network:\n\nThe meanings of these symbols:\n\n\\(x_1\\) and \\(x_2\\) are the input.\n\\(w_1\\) and \\(w_2\\) are weights.\n\\(y\\) is the output.\n\nThe computation in the neural network:\n\n\\(a = x_1 w_1 + x_2 w_2 + b\\)\n\\(y = h(a)\\)\n\nExplanations:\n\n\\(a\\) is the weighted sum of the input.\n\\(b\\) is bias.\n\\(h(x)\\) is activation function."
+  },
+  {
+    "objectID": "nns.html#section",
+    "href": "nns.html#section",
+    "title": "1  Neural Networks",
+    "section": "1.2 ",
+    "text": "1.2"
+  },
+  {
+    "objectID": "neural-networks.html",
+    "href": "neural-networks.html",
+    "title": "1  Neural Networks",
+    "section": "",
+    "text": "import numpy as np\nimport matplotlib.pylab as plt"
+  },
+  {
+    "objectID": "neural-networks.html#section",
+    "href": "neural-networks.html#section",
+    "title": "1  Neural Networks",
+    "section": "1.2 ",
+    "text": "1.2"
+  },
+  {
+    "objectID": "neural-networks.html#activation-functions",
+    "href": "neural-networks.html#activation-functions",
+    "title": "1  Neural Networks",
+    "section": "1.2 Activation Functions",
+    "text": "1.2 Activation Functions\nHere we introduce three common activation functions.\nSigmoid function:\n\\[\\displaystyle h(x) = \\frac{1}{1 + \\mathrm{exp}(-x)}\\]\nImplement it:\n\ndef sigmoid(x):\n  y = 1 / (1 + np.exp(-x))\n  return y\n\nPlot it:\n\nx = np.arange(-5.0, 5.0, 0.1)\ny = sigmoid(x)\nplt.plot(x, y)\nplt.show()\n\n\n\n\nRectified linear unit (ReLU):\n\\[h(x) =\n\\begin{cases}\n  x & (x > 0) \\\\\n  0 & (x \\le 0)\n\\end{cases}\\]\nImplement it:\n\ndef relu(x):\n  y = np.maximum(0, x)\n  return y\n\nPlot it:\n\nx = np.arange(-5.0, 5.0, 0.1)\ny = relu(x)\nplt.plot(x, y)\nplt.show()\n\n\n\n\nSoftmax function is used in output layers and is for multi-class classification problems:\n\\[y_k = \\frac{\\mathrm{exp}(a_k)}{\n\\displaystyle\\sum^{n}_{i = 1} \\mathrm{exp}(a_i)}\\]"
+  },
+  {
+    "objectID": "neural-networks.html#basic-structure",
+    "href": "neural-networks.html#basic-structure",
+    "title": "1  Neural Networks",
+    "section": "1.1 Basic Structure",
+    "text": "1.1 Basic Structure\nBelow is a very simple neural network:\n\nThe meanings of these symbols:\n\n\\(x_1\\) and \\(x_2\\) are the input.\n\\(w_1\\) and \\(w_2\\) are weights.\n\\(y\\) is the output.\n\nThe computation in the neural network:\n\n\\(a = x_1 w_1 + x_2 w_2 + b\\)\n\\(y = h(a)\\)\n\nExplanations:\n\n\\(a\\) is the weighted sum of the input.\n\\(b\\) is bias.\n\\(h(x)\\) is activation function."
+  },
+  {
+    "objectID": "neural-networks.html#softmax-function",
+    "href": "neural-networks.html#softmax-function",
+    "title": "1  Neural Networks",
+    "section": "1.3 Softmax Function",
+    "text": "1.3 Softmax Function"
+  },
+  {
+    "objectID": "learning.html",
+    "href": "learning.html",
+    "title": "2  Learning",
+    "section": "",
+    "text": "import numpy as np\nThe learning of a neural network is the process of finding the weights that produce some minimum value of its loss function."
+  },
+  {
+    "objectID": "learning.html#loss-function",
+    "href": "learning.html#loss-function",
+    "title": "2  Learning",
+    "section": "2.1 Loss Function",
+    "text": "2.1 Loss Function\nThe loss function of a neural network is a negative indicator of its accuracy."
+  },
+  {
+    "objectID": "learning.html#loss-functions",
+    "href": "learning.html#loss-functions",
+    "title": "2  Learning",
+    "section": "2.1 Loss Functions",
+    "text": "2.1 Loss Functions\nThe loss function of a neural network is a negative indicator of its accuracy. It measures the distance between the supervised data and the output of the neural network.\nHere we introduce two loss functions.\nMean squared error:\n\\[\\displaystyle E =\n\\sum_{k} (y_k - t_k)^2\\]\nThe meanings of these symbols:\n\n\\(k\\) is the dimension of the data.\n\\(y_k\\) is the output.\n\\(t_k\\) is the supervised data.\n\nCross entropy error:\n\\[\\displaystyle E =\n- \\sum_{k} t_k \\: \\mathrm{log} \\, y_k\\]\nLet’s try to understand the cross entropy error. For one-hot data, \\(t_{some} = 1\\) for some dimension, while \\(t_k = 0\\) for other dimensions. Therefore, the formula can be reduced to \\(E = - \\mathrm{log} \\, y_{some}\\), and the larger \\(y_{some}\\) is, the lower \\(E\\) will be. When \\(y_{some} = 1\\), \\(E = 0\\). This makes perfect sense."
+  },
+  {
+    "objectID": "learning.html#gradient-method",
+    "href": "learning.html#gradient-method",
+    "title": "2  Learning",
+    "section": "2.2 Gradient Method",
+    "text": "2.2 Gradient Method\nGradient method is the algorithm for finding the weights that produce some minimum value of a neural network’s loss function.\nGradient? Let’s first recall the definition of derivative:\n\\[\\displaystyle \\frac{\\mathrm{d}f(x)}{\\mathrm{d}x}\n= \\lim\\limits_{h \\to 0} \\frac{f(x+h) - f(x)}{h}\\]\nFor a multivariate function, we can find its derivative with respect to some variable by treating other variables as constants. The outcome is called partial derivative.\nFinally, the gradient of a function is the vector of its partial derivatives:\n\\[\\nabla f = \\left(\\frac{\\partial f}{\\partial x_0},\n\\frac{\\partial f}{\\partial x_1}, \\dots \\right)\\]\nGradient method steps:\n\nSuppose you are at a point of \\(f\\).\nCalculate the gradient of this point.\nMove a little bit against the gradient.\nRepeat step 2 and 3 until reach a local minimum."
+  },
+  {
+    "objectID": "learning.html#an-example",
+    "href": "learning.html#an-example",
+    "title": "2  Learning",
+    "section": "2.3 An Example",
+    "text": "2.3 An Example\nLet’s use gradient method to find the minimum of \\(f(x_0, x_1) = x_0^2 + x_1^2\\).\nFirst, we need to implement a function for numerical differentiation. Differentiation is the process of finding the derivative of a function.\n\ndef differentiate(f, x):\n  h = 1e-4\n  d = (f(x+h) - f(x-h)) / 2*h\n  return d\n\nTry it on \\(f(x) = x^2\\) at \\(x = 2\\). Its derivative is \\(f'(x) = 2x\\), so the outcome should be \\(4\\):\n\ndifferentiate(lambda x: x**2, 2)\n\n4.000000000004e-08\n\n\nSecond, we need a function for partial differentiation:"
+  },
+  {
+    "objectID": "learning.html#implementation",
+    "href": "learning.html#implementation",
+    "title": "2  Learning",
+    "section": "2.3 Implementation",
+    "text": "2.3 Implementation\nFirst, let’s implement a function for numerical differentiation. Differentiation is the process of finding the derivative of a function.\n\ndef differentiate(f, x):\n  h = 1e-4\n  d = (f(x+h) - f(x-h)) / (2*h)\n  return d\n\nTry it on \\(f(x) = x^2\\) at \\(x = 2\\). Its derivative is \\(f'(x) = 2x\\), so the outcome should be \\(4\\):\n\ndifferentiate(lambda x: x**2, 2)\n\n4.000000000004\n\n\nSecond, let’s implement a function for calculating gradient:\n\ndef gradient(f, x):\n  e = 1e-4\n  g = np.zeros_like(x, float)\n\n  for i, _ in enumerate(x):\n    h = np.zeros_like(x, float)\n    h[i] = e\n    g[i] = (f(x+h) - f(x-h)) / (2*e)\n\n  return g\n\nTry it on \\(f(x_0, x_1) = x_0^2 + x_1^2\\) at \\(x_0 = 2\\) and \\(x_1 = 3\\). Its gradient is \\((2x_0, 2x_1)\\), so the outcome should be \\((4, 6)\\):\n\ngradient(lambda x: x[0]**2 + x[1]**2, np.array([2, 3]))\n\narray([4., 6.])\n\n\nFinally, let’s implement the gradient method:\n\ndef gradient_method(f, x, rate=0.1, step=100):\n  for i in range(step):\n    g = gradient(f, x)\n    x = x - g*rate\n\n  return x\n\nrate is learning rate.\nFind the \\((x_0, x_1)\\) where \\(f(x_0, x_1) = x_0^2 + x_1^2\\) has its minimum:\n\ngradient_method(lambda x: x[0]**2 + x[1]**2, np.array([-3, 4]))\n\narray([-6.11110793e-10,  8.14814391e-10])"
+  }
+]
