@@ -212,6 +212,7 @@
 <p>Finally, the <strong>gradient</strong> of a function is the vector of its partial derivatives:</p>
 <p><span class="math display">\[\nabla f = \left(\frac{\partial f}{\partial x_0},
 \frac{\partial f}{\partial x_1}, \dots \right)\]</span></p>
+<p>The process of finding the derivative(s) of a function is called <strong>differentiation</strong>.</p>
 <p>Gradient method steps:</p>
 <ol type="1">
 <li>Suppose you are at a point of <span class="math inline">\(f\)</span>.</li>
@@ -222,23 +223,23 @@
 </section>
 <section id="implementation" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="implementation"><span class="header-section-number">2.3</span> Implementation</h2>
-<p>First, let’s implement a function for numerical differentiation. <strong>Differentiation</strong> is the process of finding the derivative of a function.</p>
+<p>First, let’s implement a function for calculating derivative:</p>
 <div class="cell" data-execution_count="2">
-<div class="sourceCode" id="cb2"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> differentiate(f, x):</span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_derivative(f, x):</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  h <span class="op">=</span> <span class="fl">1e-4</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  d <span class="op">=</span> (f(x<span class="op">+</span>h) <span class="op">-</span> f(x<span class="op">-</span>h)) <span class="op">/</span> (<span class="dv">2</span><span class="op">*</span>h)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Try it on <span class="math inline">\(f(x) = x^2\)</span> at <span class="math inline">\(x = 2\)</span>. Its derivative is <span class="math inline">\(f'(x) = 2x\)</span>, so the outcome should be <span class="math inline">\(4\)</span>:</p>
 <div class="cell" data-execution_count="3">
-<div class="sourceCode" id="cb3"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>differentiate(<span class="kw">lambda</span> x: x<span class="op">**</span><span class="dv">2</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>get_derivative(<span class="kw">lambda</span> x: x<span class="op">**</span><span class="dv">2</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display" data-execution_count="3">
 <pre><code>4.000000000004</code></pre>
 </div>
 </div>
 <p>Second, let’s implement a function for calculating gradient:</p>
 <div class="cell" data-execution_count="4">
-<div class="sourceCode" id="cb5"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gradient(f, x):</span>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_gradient(f, x):</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  e <span class="op">=</span> <span class="fl">1e-4</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  g <span class="op">=</span> np.zeros_like(x, <span class="bu">float</span>)</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -251,7 +252,7 @@
 </div>
 <p>Try it on <span class="math inline">\(f(x_0, x_1) = x_0^2 + x_1^2\)</span> at <span class="math inline">\(x_0 = 2\)</span> and <span class="math inline">\(x_1 = 3\)</span>. Its gradient is <span class="math inline">\((2x_0, 2x_1)\)</span>, so the outcome should be <span class="math inline">\((4, 6)\)</span>:</p>
 <div class="cell" data-execution_count="5">
-<div class="sourceCode" id="cb6"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>gradient(<span class="kw">lambda</span> x: x[<span class="dv">0</span>]<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> x[<span class="dv">1</span>]<span class="op">**</span><span class="dv">2</span>, np.array([<span class="dv">2</span>, <span class="dv">3</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>get_gradient(<span class="kw">lambda</span> x: x[<span class="dv">0</span>]<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> x[<span class="dv">1</span>]<span class="op">**</span><span class="dv">2</span>, np.array([<span class="dv">2</span>, <span class="dv">3</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display" data-execution_count="5">
 <pre><code>array([4., 6.])</code></pre>
 </div>
@@ -260,7 +261,7 @@
 <div class="cell" data-execution_count="6">
 <div class="sourceCode" id="cb8"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gradient_method(f, x, rate<span class="op">=</span><span class="fl">0.1</span>, step<span class="op">=</span><span class="dv">100</span>):</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(step):</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    g <span class="op">=</span> gradient(f, x)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    g <span class="op">=</span> get_gradient(f, x)</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> x <span class="op">-</span> g<span class="op">*</span>rate</span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
