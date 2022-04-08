@@ -48,6 +48,8 @@ Finally, the **gradient** of a function is the vector of its partial derivatives
 $$\nabla f = \left(\frac{\partial f}{\partial x_0},
 \frac{\partial f}{\partial x_1}, \dots \right)$$
 
+The process of finding the derivative(s) of a function is called **differentiation**.
+
 Gradient method steps:
 
 1. Suppose you are at a point of $f$.
@@ -58,10 +60,10 @@ Gradient method steps:
 
 ## Implementation
 
-First, let's implement a function for numerical differentiation. **Differentiation** is the process of finding the derivative of a function.
+First, let's implement a function for calculating derivative: 
 
 ```{python}
-def differentiate(f, x):
+def get_derivative(f, x):
   h = 1e-4
   d = (f(x+h) - f(x-h)) / (2*h)
   return d
@@ -70,13 +72,13 @@ def differentiate(f, x):
 Try it on $f(x) = x^2$ at $x = 2$. Its derivative is $f'(x) = 2x$, so the outcome should be $4$:
 
 ```{python}
-differentiate(lambda x: x**2, 2)
+get_derivative(lambda x: x**2, 2)
 ```
 
 Second, let's implement a function for calculating gradient:
 
 ```{python}
-def gradient(f, x):
+def get_gradient(f, x):
   e = 1e-4
   g = np.zeros_like(x, float)
 
@@ -91,7 +93,7 @@ def gradient(f, x):
 Try it on $f(x_0, x_1) = x_0^2 + x_1^2$ at $x_0 = 2$ and $x_1 = 3$. Its gradient is $(2x_0, 2x_1)$, so the outcome should be $(4, 6)$:
 
 ```{python}
-gradient(lambda x: x[0]**2 + x[1]**2, np.array([2, 3]))
+get_gradient(lambda x: x[0]**2 + x[1]**2, np.array([2, 3]))
 ```
 
 Finally, let's implement the gradient method:
@@ -99,7 +101,7 @@ Finally, let's implement the gradient method:
 ```{python}
 def gradient_method(f, x, rate=0.1, step=100):
   for i in range(step):
-    g = gradient(f, x)
+    g = get_gradient(f, x)
     x = x - g*rate
 
   return x
