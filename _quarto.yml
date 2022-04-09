@@ -8,6 +8,7 @@ book:
     - index.qmd
     - neural-networks.qmd
     - learning.qmd
+    - mnist.qmd
 
 format:
   html:

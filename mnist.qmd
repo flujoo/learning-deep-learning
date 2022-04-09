@@ -1,0 +1,85 @@
+# MNIST
+
+```{python}
+from tensorflow.keras.datasets import mnist
+from matplotlib import pyplot
+import numpy as np
+```
+
+The MNIST dataset of handwritten digits is widely used. Let's get familiar with it.
+
+
+## MNIST
+
+The components of the dataset:
+
+```{python}
+(train_images, train_labels), (test_images, test_labels) = mnist.load_data()
+```
+
+The shapes of the components:
+
+```{python}
+train_images.shape
+```
+
+```{python}
+train_labels.shape
+```
+
+Each case of the images is a 28 × 28 array which represents a digit. Each number in the array is between 0 and 255:
+
+```{python}
+train_images[0]
+```
+
+```{python}
+pyplot.imshow(
+  train_images[0],
+
+  # color scheme
+  cmap=pyplot.cm.binary
+)
+
+pyplot.show()
+```
+
+Each label is a number between 0 and 9:
+
+```{python}
+train_labels[0]
+```
+
+
+## Normalization
+
+The dataset should usually be normalized before fed into a neural network.
+
+First, the images should be converted to vectors:
+
+```{python}
+train_images = train_images.reshape((60000, 28 * 28))
+
+train_images[0]
+```
+
+Second, the numbers in the images are normalized to from 0 to 1:
+
+```{python}
+train_images = train_images.astype("float32") / 255
+
+train_images[0]
+```
+
+Third, the labels should use one-hot representation:
+
+```{python}
+_ = np.zeros((train_labels.size, 10))
+
+for i, label in enumerate(train_labels):
+  _[i][label] = 1
+
+train_labels = _
+
+train_labels[0]
+```
