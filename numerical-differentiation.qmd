@@ -30,4 +30,6 @@ $\eta$ is called learning rate.
 
 The code is in [code/numerical_differentiation.py](https://github.com/flujoo/learning-deep-learning/blob/master/code/numerical_differentiation.py).
 
+The losses of 300 iterations:
+
 ![](assets/numerical-differentiation/losses.png)
