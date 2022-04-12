@@ -1,0 +1,64 @@
+# NumPy Basics
+
+```{python}
+import numpy as np
+```
+
+Let's take a break and learn some NumPy basics.
+
+
+## Create Array
+
+Let's start with the functions we have been using.
+
+Turn a list into an array:
+
+```{python}
+np.array([[1, 2], [3, 4]])
+```
+
+Generate a sequence of numbers:
+
+```{python}
+np.arange(1, 10, 2)
+```
+
+Create an array of random numbers from the standard normal distribution:
+
+```{python}
+np.random.randn(2, 3, 4)
+```
+
+Create an array of zeros:
+
+```{python}
+np.zeros(3)
+```
+
+```{python}
+np.zeros_like(np.random.randn(2, 3))
+```
+
+
+## Data Types
+
+The data type of NumPy arrays in Python: 
+
+```{python}
+type(np.random.randn(2, 3))
+```
+
+ndarray is short for n-dimensional array.
+
+NumPy data types:
+
+```{python}
+np.random.randn(2, 3).dtype
+```
+
+```{python}
+np.array([1, 2]).dtype
+```
+
+
+## Array Structure

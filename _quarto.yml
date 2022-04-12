@@ -10,6 +10,7 @@ book:
     - learning.qmd
     - mnist.qmd
     - numerical-differentiation.qmd
+    - numpy.qmd
 
 format:
   html:
