@@ -1,5 +1,5 @@
 """
-Classify the MNIST dataset with numerical differentiation.
+Train a neural network on MNIST with numerical differentiation.
 """
 
 import numpy as np
