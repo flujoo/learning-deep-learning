@@ -96,5 +96,33 @@
     "title": "4  Numerical Differentiation",
     "section": "4.2 Implementation",
     "text": "4.2 Implementation\nThe code is in code/numerical_differentiation.py."
+  },
+  {
+    "objectID": "numpy.html",
+    "href": "numpy.html",
+    "title": "5  NumPy Basics",
+    "section": "",
+    "text": "import numpy as np\nLet’s take a break and learn some NumPy basics."
+  },
+  {
+    "objectID": "numpy.html#create-array",
+    "href": "numpy.html#create-array",
+    "title": "5  NumPy Basics",
+    "section": "5.1 Create Array",
+    "text": "5.1 Create Array\nLet’s start with the functions we have been using.\nTurn a list into an array:\n\nnp.array([[1, 2], [3, 4]])\n\narray([[1, 2],\n       [3, 4]])\n\n\nGenerate a sequence of numbers:\n\nnp.arange(1, 10, 2)\n\narray([1, 3, 5, 7, 9])\n\n\nCreate an array of random numbers from the standard normal distribution:\n\nnp.random.randn(2, 3, 4)\n\narray([[[-0.42694078, -0.56793081,  0.42071775,  1.01290794],\n        [ 2.24839252, -0.49208028,  1.15066942,  1.54259915],\n        [-0.07636021,  1.35640221,  2.31141298, -1.15435093]],\n\n       [[-0.06369917, -1.39570867,  0.62024422,  0.8393825 ],\n        [ 1.14297167,  0.59241842, -2.89769433, -0.73901835],\n        [-1.87259906, -0.36460203,  2.43284581, -0.58331254]]])\n\n\nCreate an array of zeros:\n\nnp.zeros(3)\n\narray([0., 0., 0.])\n\n\n\nnp.zeros_like(np.random.randn(2, 3))\n\narray([[0., 0., 0.],\n       [0., 0., 0.]])"
+  },
+  {
+    "objectID": "numpy.html#data-types",
+    "href": "numpy.html#data-types",
+    "title": "5  NumPy Basics",
+    "section": "5.2 Data Types",
+    "text": "5.2 Data Types\nThe data type of NumPy arrays in Python:\n\ntype(np.random.randn(2, 3))\n\nnumpy.ndarray\n\n\nndarray is short for n-dimensional array.\nNumPy data types:\n\nnp.random.randn(2, 3).dtype\n\ndtype('float64')\n\n\n\nnp.array([1, 2]).dtype\n\ndtype('int64')"
+  },
+  {
+    "objectID": "numpy.html#array-structure",
+    "href": "numpy.html#array-structure",
+    "title": "5  NumPy Basics",
+    "section": "5.3 Array Structure",
+    "text": "5.3 Array Structure"
   }
 ]

@@ -3,7 +3,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="quarto-0.9.230">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Learning Deep Learning - 2&nbsp; Learning</title>
+  <title>Learning Deep Learning - 5&nbsp; NumPy Basics</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -83,8 +83,7 @@
   <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
   <script src="site_libs/quarto-search/fuse.min.js"></script>
   <script src="site_libs/quarto-search/quarto-search.js"></script>
-  <link href="./mnist.html" rel="next">
-  <link href="./neural-networks.html" rel="prev">
+  <link href="./numerical-differentiation.html" rel="prev">
   <script src="site_libs/quarto-html/quarto.js"></script>
   <script src="site_libs/quarto-html/popper.min.js"></script>
   <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -113,7 +112,6 @@
       "search-submit-button-title": "Submit"
     }
   }</script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -123,7 +121,7 @@
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Learning</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">NumPy Basics</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -158,7 +156,7 @@
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./learning.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Learning</span></a>
+  <a href="./learning.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Learning</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -173,7 +171,7 @@
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./numpy.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">NumPy Basics</span></a>
+  <a href="./numpy.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">NumPy Basics</span></a>
   </div>
 </li>
     </ul>
@@ -184,9 +182,9 @@
         <nav id="TOC" role="doc-toc">
 <h2 id="toc-title">Table of contents</h2>
 <ul>
-<li><a href="#loss-functions" id="toc-loss-functions" class="nav-link active" data-scroll-target="#loss-functions"> <span class="header-section-number">2.1</span> Loss Functions</a></li>
-<li><a href="#gradient-method" id="toc-gradient-method" class="nav-link" data-scroll-target="#gradient-method"> <span class="header-section-number">2.2</span> Gradient Method</a></li>
-<li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation"> <span class="header-section-number">2.3</span> Implementation</a></li>
+<li><a href="#create-array" id="toc-create-array" class="nav-link active" data-scroll-target="#create-array"> <span class="header-section-number">5.1</span> Create Array</a></li>
+<li><a href="#data-types" id="toc-data-types" class="nav-link" data-scroll-target="#data-types"> <span class="header-section-number">5.2</span> Data Types</a></li>
+<li><a href="#array-structure" id="toc-array-structure" class="nav-link" data-scroll-target="#array-structure"> <span class="header-section-number">5.3</span> Array Structure</a></li>
 </ul>
 </nav>
     </div>
@@ -194,102 +192,84 @@
 <main class="content" id="quarto-document-content">
 <header id="title-block-header" class="quarto-title-block default">
 
-<div class="quarto-title"><h1 class="title d-none d-lg-block display-7"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Learning</span></h1></div></header>
+<div class="quarto-title"><h1 class="title d-none d-lg-block display-7"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">NumPy Basics</span></h1></div></header>
 
 <div class="cell" data-execution_count="1">
 <div class="sourceCode" id="cb1"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The learning of a neural network is the process of finding the weights that produce some minimum value of its loss function.</p>
-<section id="loss-functions" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="loss-functions"><span class="header-section-number">2.1</span> Loss Functions</h2>
-<p>The loss function of a neural network is a negative indicator of its accuracy. It measures the distance between the supervised data and the output of the neural network.</p>
-<p>Here we introduce two loss functions.</p>
-<p><strong>Mean squared error</strong>:</p>
-<p><span class="math display">\[\displaystyle E =
-\sum_{k} (y_k - t_k)^2\]</span></p>
-<p>The meanings of these symbols:</p>
-<ul>
-<li><span class="math inline">\(k\)</span> is the dimension of the data.</li>
-<li><span class="math inline">\(y_k\)</span> is the output.</li>
-<li><span class="math inline">\(t_k\)</span> is the supervised data.</li>
-</ul>
-<p><strong>Cross entropy error</strong>:</p>
-<p><span class="math display">\[\displaystyle E =
-- \sum_{k} t_k \: \mathrm{log} \, y_k\]</span></p>
-<p>Let’s try to understand the cross entropy error. For one-hot data, <span class="math inline">\(t_{some} = 1\)</span> for some dimension, while <span class="math inline">\(t_k = 0\)</span> for other dimensions. Therefore, the formula can be reduced to <span class="math inline">\(E = - \mathrm{log} \, y_{some}\)</span>, and the larger <span class="math inline">\(y_{some}\)</span> is, the lower <span class="math inline">\(E\)</span> will be. When <span class="math inline">\(y_{some} = 1\)</span>, <span class="math inline">\(E = 0\)</span>. This makes perfect sense.</p>
-</section>
-<section id="gradient-method" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="gradient-method"><span class="header-section-number">2.2</span> Gradient Method</h2>
-<p>Gradient method is the algorithm for finding the weights that produce some minimum value of a neural network’s loss function.</p>
-<p>Gradient? Let’s first recall the definition of <strong>derivative</strong>:</p>
-<p><span class="math display">\[\displaystyle \frac{\mathrm{d}f(x)}{\mathrm{d}x}
-= \lim\limits_{h \to 0} \frac{f(x+h) - f(x)}{h}\]</span></p>
-<p>For a multivariate function, we can find its derivative with respect to some variable by treating other variables as constants. The outcome is called <strong>partial derivative</strong>.</p>
-<p>Finally, the <strong>gradient</strong> of a function is the vector of its partial derivatives:</p>
-<p><span class="math display">\[\nabla f = \left(\frac{\partial f}{\partial x_0},
-\frac{\partial f}{\partial x_1}, \dots \right)\]</span></p>
-<p>The process of finding the derivative(s) of a function is called <strong>differentiation</strong>.</p>
-<p>Gradient method steps:</p>
-<ol type="1">
-<li>Suppose you are at a point of <span class="math inline">\(f\)</span>.</li>
-<li>Calculate the gradient of this point.</li>
-<li>Move a little bit against the gradient.</li>
-<li>Repeat step 2 and 3 until reach a local minimum.</li>
-</ol>
-</section>
-<section id="implementation" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="implementation"><span class="header-section-number">2.3</span> Implementation</h2>
-<p>First, let’s implement a function for calculating derivative:</p>
+<p>Let’s take a break and learn some NumPy basics.</p>
+<section id="create-array" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="create-array"><span class="header-section-number">5.1</span> Create Array</h2>
+<p>Let’s start with the functions we have been using.</p>
+<p>Turn a list into an array:</p>
 <div class="cell" data-execution_count="2">
-<div class="sourceCode" id="cb2"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_derivative(f, x):</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  h <span class="op">=</span> <span class="fl">1e-4</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  d <span class="op">=</span> (f(x<span class="op">+</span>h) <span class="op">-</span> f(x<span class="op">-</span>h)) <span class="op">/</span> (<span class="dv">2</span><span class="op">*</span>h)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>np.array([[<span class="dv">1</span>, <span class="dv">2</span>], [<span class="dv">3</span>, <span class="dv">4</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display" data-execution_count="2">
+<pre><code>array([[1, 2],
+       [3, 4]])</code></pre>
 </div>
-<p>Try it on <span class="math inline">\(f(x) = x^2\)</span> at <span class="math inline">\(x = 2\)</span>. Its derivative is <span class="math inline">\(f'(x) = 2x\)</span>, so the outcome should be <span class="math inline">\(4\)</span>:</p>
+</div>
+<p>Generate a sequence of numbers:</p>
 <div class="cell" data-execution_count="3">
-<div class="sourceCode" id="cb3"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>get_derivative(<span class="kw">lambda</span> x: x<span class="op">**</span><span class="dv">2</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>np.arange(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display" data-execution_count="3">
-<pre><code>4.000000000004</code></pre>
+<pre><code>array([1, 3, 5, 7, 9])</code></pre>
 </div>
 </div>
-<p>Second, let’s implement a function for calculating gradient:</p>
+<p>Create an array of random numbers from the standard normal distribution:</p>
 <div class="cell" data-execution_count="4">
-<div class="sourceCode" id="cb5"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_gradient(f, x):</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  e <span class="op">=</span> <span class="fl">1e-4</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  g <span class="op">=</span> np.zeros_like(x, <span class="bu">float</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> i, _ <span class="kw">in</span> <span class="bu">enumerate</span>(x):</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    h <span class="op">=</span> np.zeros_like(x, <span class="bu">float</span>)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    h[i] <span class="op">=</span> e</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    g[i] <span class="op">=</span> (f(x<span class="op">+</span>h) <span class="op">-</span> f(x<span class="op">-</span>h)) <span class="op">/</span> (<span class="dv">2</span><span class="op">*</span>e)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>np.random.randn(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display" data-execution_count="4">
+<pre><code>array([[[-0.42694078, -0.56793081,  0.42071775,  1.01290794],
+        [ 2.24839252, -0.49208028,  1.15066942,  1.54259915],
+        [-0.07636021,  1.35640221,  2.31141298, -1.15435093]],
+
+       [[-0.06369917, -1.39570867,  0.62024422,  0.8393825 ],
+        [ 1.14297167,  0.59241842, -2.89769433, -0.73901835],
+        [-1.87259906, -0.36460203,  2.43284581, -0.58331254]]])</code></pre>
 </div>
-<p>Try it on <span class="math inline">\(f(x_0, x_1) = x_0^2 + x_1^2\)</span> at <span class="math inline">\(x_0 = 2\)</span> and <span class="math inline">\(x_1 = 3\)</span>. Its gradient is <span class="math inline">\((2x_0, 2x_1)\)</span>, so the outcome should be <span class="math inline">\((4, 6)\)</span>:</p>
+</div>
+<p>Create an array of zeros:</p>
 <div class="cell" data-execution_count="5">
-<div class="sourceCode" id="cb6"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>get_gradient(<span class="kw">lambda</span> x: x[<span class="dv">0</span>]<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> x[<span class="dv">1</span>]<span class="op">**</span><span class="dv">2</span>, np.array([<span class="dv">2</span>, <span class="dv">3</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>np.zeros(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display" data-execution_count="5">
-<pre><code>array([4., 6.])</code></pre>
+<pre><code>array([0., 0., 0.])</code></pre>
 </div>
 </div>
-<p>Finally, let’s implement the gradient method:</p>
 <div class="cell" data-execution_count="6">
-<div class="sourceCode" id="cb8"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gradient_method(f, x, rate<span class="op">=</span><span class="fl">0.1</span>, step<span class="op">=</span><span class="dv">100</span>):</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(step):</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    g <span class="op">=</span> get_gradient(f, x)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> x <span class="op">-</span> g<span class="op">*</span>rate</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>np.zeros_like(np.random.randn(<span class="dv">2</span>, <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display" data-execution_count="6">
+<pre><code>array([[0., 0., 0.],
+       [0., 0., 0.]])</code></pre>
 </div>
-<p><code>rate</code> is <strong>learning rate</strong>.</p>
-<p>Find the <span class="math inline">\((x_0, x_1)\)</span> where <span class="math inline">\(f(x_0, x_1) = x_0^2 + x_1^2\)</span> has its minimum:</p>
+</div>
+</section>
+<section id="data-types" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="data-types"><span class="header-section-number">5.2</span> Data Types</h2>
+<p>The data type of NumPy arrays in Python:</p>
 <div class="cell" data-execution_count="7">
-<div class="sourceCode" id="cb9"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>gradient_method(<span class="kw">lambda</span> x: x[<span class="dv">0</span>]<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> x[<span class="dv">1</span>]<span class="op">**</span><span class="dv">2</span>, np.array([<span class="op">-</span><span class="dv">3</span>, <span class="dv">4</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(np.random.randn(<span class="dv">2</span>, <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display" data-execution_count="7">
-<pre><code>array([-6.11110793e-10,  8.14814391e-10])</code></pre>
+<pre><code>numpy.ndarray</code></pre>
 </div>
 </div>
+<p>ndarray is short for n-dimensional array.</p>
+<p>NumPy data types:</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode" id="cb14"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>np.random.randn(<span class="dv">2</span>, <span class="dv">3</span>).dtype</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display" data-execution_count="8">
+<pre><code>dtype('float64')</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode" id="cb16"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>np.array([<span class="dv">1</span>, <span class="dv">2</span>]).dtype</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display" data-execution_count="9">
+<pre><code>dtype('int64')</code></pre>
+</div>
+</div>
+</section>
+<section id="array-structure" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="array-structure"><span class="header-section-number">5.3</span> Array Structure</h2>
 
 
 
@@ -373,14 +353,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./neural-networks.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Neural Networks</span></span>
+      <a href="./numerical-differentiation.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Numerical Differentiation</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./mnist.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">MNIST</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
