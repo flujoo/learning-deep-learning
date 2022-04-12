@@ -9,7 +9,7 @@ book:
     - neural-networks.qmd
     - learning.qmd
     - mnist.qmd
-    - project-numerical-differentiation.qmd
+    - numerical-differentiation.qmd
 
 format:
   html:

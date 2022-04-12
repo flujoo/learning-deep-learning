@@ -1,4 +1,4 @@
-# Project: Numerical Differentiation
+# Numerical Differentiation
 
 Let's build and train a neural network to classify MNIST dataset. Numerical differentiation rather than backpropagation will be used for calculating gradient.
 
@@ -28,4 +28,4 @@ $\eta$ is called learning rate.
 
 ## Implementation
 
-The code is in [code/project_numerical_differentiation.py](https://github.com/flujoo/learning-deep-learning/blob/master/code/project_numerical_differentiation.py).
+The code is in [code/numerical_differentiation.py](https://github.com/flujoo/learning-deep-learning/blob/master/code/numerical_differentiation.py).
