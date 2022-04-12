@@ -1,5 +1,0 @@
-# Project: MNIST (Numerical Differentiation)
-
-Let's build and train a neural network to classify MNIST dataset with numerical differentiation.
-
-The code is in [code/project_1.py](https://github.com/flujoo/learning-deep-learning/blob/master/code/project_1.py).
