@@ -81,13 +81,6 @@
     "href": "project-mnist-numerical-differentiation.html",
     "title": "4  Project: MNIST (Numerical Differentiation)",
     "section": "",
-    "text": "import numpy as np\nLet’s build and train a neural network to classify MNIST dataset. In this chapter, numerical differentiation rather than backpropagation will be used to calculate gradient."
-  },
-  {
-    "objectID": "project-mnist-numerical-differentiation.html#neural-network-methods",
-    "href": "project-mnist-numerical-differentiation.html#neural-network-methods",
-    "title": "4  Project: MNIST (Numerical Differentiation)",
-    "section": "4.1 Neural Network Methods",
-    "text": "4.1 Neural Network Methods\nThe function for initializing a neural network:\n\ndef initialize(size, std=0.01):\n  Ws = []\n  bs = []\n\n  for i, n in enumerate(size[:-1]):\n    m = size[i+1]\n    W = np.random.randn(n, m) * std\n    b = np.zeros(m)\n    Ws.append(W)\n    bs.append(b)\n\n  nn = {'Weights': Ws, 'biases': bs}\n  return nn\n\nThe function for calculating the output:\n\ndef predict(nn, x):\n  Ws = nn['Weights']\n  bs = nn['biases']\n\n  for i, W in enumerate(Ws):\n    b = bs[i]\n    x = np.dot(x, W) + b\n\n    if (i != len(Ws) - 1):\n      x = sigmoid(x)\n    else:\n      x = softmax(x)\n\n  return x\n\nSigmoid function and softmax function:\n\ndef sigmoid(x):\n  y = 1 / (1 + np.exp(-x))\n  return y\n\ndef softmax(x):\n  e = np.exp(x)\n  y = e / np.sum(e)\n  return y"
+    "text": "The code is in code/project_1.py."
   }
 ]
