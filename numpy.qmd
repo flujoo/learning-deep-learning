@@ -62,3 +62,74 @@ np.array([1, 2]).dtype
 
 
 ## Array Structure
+
+```{python}
+a = np.random.randn(2, 3, 4)
+```
+
+```{python}
+a.ndim
+```
+
+```{python}
+a.shape
+```
+
+
+## Arithmetic Operations
+
+```{python}
+A = np.array([[1, 2], [3, 4]])
+B = np.array([[-1, -2], [-3, -4]])
+x = np.array([1, 2])
+```
+
+Element-wise operations:
+
+```{python}
+A + B
+```
+
+```{python}
+A * B
+```
+
+Broadcast:
+
+```{python}
+A * x
+```
+
+
+## Matrix Multiplication
+
+```{python}
+x = np.array([1, 2])
+W = np.array([[1, 2, 3], [2, 3, 4]])
+np.dot(x, W)
+```
+
+For batch:
+
+```{python}
+xs = np.array([[1, 2], [-1, -2]])
+np.dot(xs, W)
+```
+
+Note that the input to a neural network is usually a batch. The implementation of the batch version of some functions may be different. For example, below is the function calculating the sum of a vector:
+
+```{python}
+np.sum(x)
+```
+
+You can not just apply it to a batch of vectors:
+
+```{python}
+np.sum(xs)
+```
+
+Instead, you should use:
+
+```{python}
+np.sum(xs, axis=1, keepdims=True)
+```
