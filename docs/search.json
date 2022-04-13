@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Learning Deep Learning",
     "section": "",
-    "text": "A deep learning textbook for myself."
+    "text": "Turning my learning of deep learning into a textbook."
   },
   {
     "objectID": "neural-networks.html",
@@ -109,7 +109,7 @@
     "href": "numpy.html#create-array",
     "title": "5  NumPy Basics",
     "section": "5.1 Create Array",
-    "text": "5.1 Create Array\nLet’s start with the functions we have been using.\nTurn a list into an array:\n\nnp.array([[1, 2], [3, 4]])\n\narray([[1, 2],\n       [3, 4]])\n\n\nGenerate a sequence of numbers:\n\nnp.arange(1, 10, 2)\n\narray([1, 3, 5, 7, 9])\n\n\nCreate an array of random numbers from the standard normal distribution:\n\nnp.random.randn(2, 3, 4)\n\narray([[[ 0.48801404,  1.48981171,  0.25872418, -0.97777661],\n        [ 1.33926991,  0.77942792,  0.53268322,  0.56336483],\n        [-0.82507345,  0.30447554, -0.30033858, -0.65654655]],\n\n       [[ 0.3098848 , -0.84861716, -0.51473156, -0.65878184],\n        [ 1.63841899,  0.54639654, -0.60063263,  0.38193305],\n        [ 0.11710995, -0.16423306, -0.18966887,  0.12480386]]])\n\n\nCreate an array of zeros:\n\nnp.zeros(3)\n\narray([0., 0., 0.])\n\n\n\nnp.zeros_like(np.random.randn(2, 3))\n\narray([[0., 0., 0.],\n       [0., 0., 0.]])"
+    "text": "5.1 Create Array\nLet’s start with the functions we have been using.\nTurn a list into an array:\n\nnp.array([[1, 2], [3, 4]])\n\narray([[1, 2],\n       [3, 4]])\n\n\nGenerate a sequence of numbers:\n\nnp.arange(1, 10, 2)\n\narray([1, 3, 5, 7, 9])\n\n\nCreate an array of random numbers from the standard normal distribution:\n\nnp.random.randn(2, 3, 4)\n\narray([[[ 0.11476803, -0.17120539, -0.51648552,  0.62555821],\n        [-1.31776439,  0.13300413,  0.41566891, -0.44879322],\n        [-0.68044599, -0.80746364,  0.18070122,  0.46146689]],\n\n       [[ 0.25849248, -1.10446286,  1.17891875,  0.78866047],\n        [-0.16137652,  0.44792075,  0.24733559,  1.62496044],\n        [-0.91888211,  0.00678076, -0.43093078,  0.1355784 ]]])\n\n\nCreate an array of zeros:\n\nnp.zeros(3)\n\narray([0., 0., 0.])\n\n\n\nnp.zeros_like(np.random.randn(2, 3))\n\narray([[0., 0., 0.],\n       [0., 0., 0.]])"
   },
   {
     "objectID": "numpy.html#data-types",
@@ -123,6 +123,20 @@
     "href": "numpy.html#array-structure",
     "title": "5  NumPy Basics",
     "section": "5.3 Array Structure",
-    "text": "5.3 Array Structure"
+    "text": "5.3 Array Structure\n\na = np.random.randn(2, 3, 4)\n\n\na.ndim\n\n3\n\n\n\na.shape\n\n(2, 3, 4)"
+  },
+  {
+    "objectID": "numpy.html#arithmetic-operations",
+    "href": "numpy.html#arithmetic-operations",
+    "title": "5  NumPy Basics",
+    "section": "5.4 Arithmetic Operations",
+    "text": "5.4 Arithmetic Operations\n\nA = np.array([[1, 2], [3, 4]])\nB = np.array([[-1, -2], [-3, -4]])\nx = np.array([1, 2])\n\nElement-wise operations:\n\nA + B\n\narray([[0, 0],\n       [0, 0]])\n\n\n\nA * B\n\narray([[ -1,  -4],\n       [ -9, -16]])\n\n\nBroadcast:\n\nA * x\n\narray([[1, 4],\n       [3, 8]])"
+  },
+  {
+    "objectID": "numpy.html#matrix-multiplication",
+    "href": "numpy.html#matrix-multiplication",
+    "title": "5  NumPy Basics",
+    "section": "5.5 Matrix Multiplication",
+    "text": "5.5 Matrix Multiplication\n\nx = np.array([1, 2])\nW = np.array([[1, 2, 3], [2, 3, 4]])\nnp.dot(x, W)\n\narray([ 5,  8, 11])\n\n\nFor batch:\n\nxs = np.array([[1, 2], [-1, -2]])\nnp.dot(xs, W)\n\narray([[  5,   8,  11],\n       [ -5,  -8, -11]])\n\n\nNote that the input to a neural network is usually a batch. The implementation of the batch version of some functions may be different. For example, below is the function calculating the sum of a vector:\n\nnp.sum(x)\n\n3\n\n\nYou can not just apply it to a batch of vectors:\n\nnp.sum(xs)\n\n0\n\n\nInstead, you should use:\n\nnp.sum(xs, axis=1, keepdims=True)\n\narray([[ 3],\n       [-3]])"
   }
 ]
