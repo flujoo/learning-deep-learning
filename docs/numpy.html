@@ -83,6 +83,7 @@
   <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
   <script src="site_libs/quarto-search/fuse.min.js"></script>
   <script src="site_libs/quarto-search/quarto-search.js"></script>
+  <link href="./backpropagation.html" rel="next">
   <link href="./numerical-differentiation.html" rel="prev">
   <script src="site_libs/quarto-html/quarto.js"></script>
   <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -174,6 +175,11 @@
   <a href="./numpy.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">NumPy Basics</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./backpropagation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Backpropagation</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -222,13 +228,13 @@
 <div class="cell" data-execution_count="4">
 <div class="sourceCode" id="cb6"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>np.random.randn(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display" data-execution_count="4">
-<pre><code>array([[[ 0.11476803, -0.17120539, -0.51648552,  0.62555821],
-        [-1.31776439,  0.13300413,  0.41566891, -0.44879322],
-        [-0.68044599, -0.80746364,  0.18070122,  0.46146689]],
+<pre><code>array([[[ 1.09485782, -1.08511051, -0.1573411 , -0.05313678],
+        [-1.37126018,  1.60640433, -0.32342164,  1.39133452],
+        [ 0.30453443, -0.86261922, -0.79395193, -2.13685246]],
 
-       [[ 0.25849248, -1.10446286,  1.17891875,  0.78866047],
-        [-0.16137652,  0.44792075,  0.24733559,  1.62496044],
-        [-0.91888211,  0.00678076, -0.43093078,  0.1355784 ]]])</code></pre>
+       [[-1.11975391, -1.15269915,  1.51627099,  1.59278561],
+        [-3.63899824, -0.67449815,  0.89620141, -0.07492994],
+        [-0.39003593, -0.91193676, -0.4966296 ,  0.4714741 ]]])</code></pre>
 </div>
 </div>
 <p>Create an array of zeros:</p>
@@ -448,6 +454,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./backpropagation.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Backpropagation</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

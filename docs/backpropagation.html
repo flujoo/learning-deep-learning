@@ -3,7 +3,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="quarto-0.9.230">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Learning Deep Learning</title>
+  <title>Learning Deep Learning - 6&nbsp; Backpropagation</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,7 @@
   <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
   <script src="site_libs/quarto-search/fuse.min.js"></script>
   <script src="site_libs/quarto-search/quarto-search.js"></script>
-  <link href="./neural-networks.html" rel="next">
+  <link href="./numpy.html" rel="prev">
   <script src="site_libs/quarto-html/quarto.js"></script>
   <script src="site_libs/quarto-html/popper.min.js"></script>
   <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -49,6 +49,7 @@
       "search-submit-button-title": "Submit"
     }
   }</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -58,7 +59,7 @@
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Learning Deep Learning</h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Backpropagation</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -83,7 +84,7 @@
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">Preface</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -113,7 +114,7 @@
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./backpropagation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Backpropagation</span></a>
+  <a href="./backpropagation.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Backpropagation</span></a>
   </div>
 </li>
     </ul>
@@ -124,7 +125,8 @@
         <nav id="TOC" role="doc-toc">
 <h2 id="toc-title">Table of contents</h2>
 <ul>
-<li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
+<li><a href="#chain-rule" id="toc-chain-rule" class="nav-link active" data-scroll-target="#chain-rule"> <span class="header-section-number">6.1</span> Chain Rule</a></li>
+<li><a href="#computational-graph" id="toc-computational-graph" class="nav-link" data-scroll-target="#computational-graph"> <span class="header-section-number">6.2</span> Computational Graph</a></li>
 </ul>
 </nav>
     </div>
@@ -132,11 +134,22 @@
 <main class="content" id="quarto-document-content">
 <header id="title-block-header" class="quarto-title-block default">
 
-<div class="quarto-title"><h1 class="title d-none d-lg-block display-7">Learning Deep Learning</h1></div></header>
+<div class="quarto-title"><h1 class="title d-none d-lg-block display-7"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Backpropagation</span></h1></div></header>
 
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1>
-<p>Turning my learning of deep learning into a textbook.</p>
+<p>Backpropagation is a more efficient algorithm for calculating gradient.</p>
+<section id="chain-rule" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="chain-rule"><span class="header-section-number">6.1</span> Chain Rule</h2>
+<p>Let’s first recall the chain rule for differentiation.</p>
+<p>Suppose we have</p>
+<p><span class="math display">\[x + y = t\]</span></p>
+<p><span class="math display">\[t^2 = z\]</span></p>
+<p>The chain rule states that</p>
+<p><span class="math display">\[\displaystyle \frac{\partial z}{\partial x} =
+\frac{\partial z}{\partial t} \frac{\partial t}{\partial x} =
+2t \times 1 = 2(x + y)\]</span></p>
+</section>
+<section id="computational-graph" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="computational-graph"><span class="header-section-number">6.2</span> Computational Graph</h2>
 
 
 
@@ -220,11 +233,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./numpy.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">NumPy Basics</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./neural-networks.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Neural Networks</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
