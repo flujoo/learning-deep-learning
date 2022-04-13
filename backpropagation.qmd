@@ -1,0 +1,23 @@
+# Backpropagation
+
+Backpropagation is a more efficient algorithm for calculating gradient.
+
+
+## Chain Rule
+
+Let's first recall the chain rule for differentiation.
+
+Suppose we have
+
+$$x + y = t$$
+
+$$t^2 = z$$
+
+The chain rule states that
+
+$$\displaystyle \frac{\partial z}{\partial x} =
+\frac{\partial z}{\partial t} \frac{\partial t}{\partial x} =
+2t \times 1 = 2(x + y)$$
+
+
+## Computational Graph
