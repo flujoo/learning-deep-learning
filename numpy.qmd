@@ -2,6 +2,9 @@
 
 ```{python}
 import numpy as np
+
+# set seed
+np.random.seed(42)
 ```
 
 Let's take a break and learn some NumPy basics.
