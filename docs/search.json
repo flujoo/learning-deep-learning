@@ -102,14 +102,14 @@
     "href": "numpy.html",
     "title": "5  NumPy Basics",
     "section": "",
-    "text": "import numpy as np\nLet’s take a break and learn some NumPy basics."
+    "text": "import numpy as np\n\n# set seed\nnp.random.seed(42)\nLet’s take a break and learn some NumPy basics."
   },
   {
     "objectID": "numpy.html#create-array",
     "href": "numpy.html#create-array",
     "title": "5  NumPy Basics",
     "section": "5.1 Create Array",
-    "text": "5.1 Create Array\nLet’s start with the functions we have been using.\nTurn a list into an array:\n\nnp.array([[1, 2], [3, 4]])\n\narray([[1, 2],\n       [3, 4]])\n\n\nGenerate a sequence of numbers:\n\nnp.arange(1, 10, 2)\n\narray([1, 3, 5, 7, 9])\n\n\nCreate an array of random numbers from the standard normal distribution:\n\nnp.random.randn(2, 3, 4)\n\narray([[[-0.92477184, -2.26948808,  2.54167326,  0.00517827],\n        [ 0.78229111, -0.43620912, -0.6798231 ,  0.03862639],\n        [ 0.64316663, -2.38032911,  0.10360743,  0.89795626]],\n\n       [[-0.30840195, -1.63198649, -2.04626454, -0.29117825],\n        [-1.55213865, -0.31103211,  0.19447813, -0.38360148],\n        [ 1.84507323, -2.50866089,  0.88516093, -1.8342528 ]]])\n\n\nCreate an array of zeros:\n\nnp.zeros(3)\n\narray([0., 0., 0.])\n\n\n\nnp.zeros_like(np.random.randn(2, 3))\n\narray([[0., 0., 0.],\n       [0., 0., 0.]])"
+    "text": "5.1 Create Array\nLet’s start with the functions we have been using.\nTurn a list into an array:\n\nnp.array([[1, 2], [3, 4]])\n\narray([[1, 2],\n       [3, 4]])\n\n\nGenerate a sequence of numbers:\n\nnp.arange(1, 10, 2)\n\narray([1, 3, 5, 7, 9])\n\n\nCreate an array of random numbers from the standard normal distribution:\n\nnp.random.randn(2, 3, 4)\n\narray([[[ 0.49671415, -0.1382643 ,  0.64768854,  1.52302986],\n        [-0.23415337, -0.23413696,  1.57921282,  0.76743473],\n        [-0.46947439,  0.54256004, -0.46341769, -0.46572975]],\n\n       [[ 0.24196227, -1.91328024, -1.72491783, -0.56228753],\n        [-1.01283112,  0.31424733, -0.90802408, -1.4123037 ],\n        [ 1.46564877, -0.2257763 ,  0.0675282 , -1.42474819]]])\n\n\nCreate an array of zeros:\n\nnp.zeros(3)\n\narray([0., 0., 0.])\n\n\n\nnp.zeros_like(np.random.randn(2, 3))\n\narray([[0., 0., 0.],\n       [0., 0., 0.]])"
   },
   {
     "objectID": "numpy.html#data-types",

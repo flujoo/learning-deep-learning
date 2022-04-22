@@ -203,7 +203,10 @@
 <div class="quarto-title"><h1 class="title d-none d-lg-block display-7"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">NumPy Basics</span></h1></div></header>
 
 <div class="cell" data-execution_count="1">
-<div class="sourceCode" id="cb1"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># set seed</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s take a break and learn some NumPy basics.</p>
 <section id="create-array" class="level2" data-number="5.1">
@@ -228,13 +231,13 @@
 <div class="cell" data-execution_count="4">
 <div class="sourceCode" id="cb6"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>np.random.randn(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display" data-execution_count="4">
-<pre><code>array([[[-0.92477184, -2.26948808,  2.54167326,  0.00517827],
-        [ 0.78229111, -0.43620912, -0.6798231 ,  0.03862639],
-        [ 0.64316663, -2.38032911,  0.10360743,  0.89795626]],
+<pre><code>array([[[ 0.49671415, -0.1382643 ,  0.64768854,  1.52302986],
+        [-0.23415337, -0.23413696,  1.57921282,  0.76743473],
+        [-0.46947439,  0.54256004, -0.46341769, -0.46572975]],
 
-       [[-0.30840195, -1.63198649, -2.04626454, -0.29117825],
-        [-1.55213865, -0.31103211,  0.19447813, -0.38360148],
-        [ 1.84507323, -2.50866089,  0.88516093, -1.8342528 ]]])</code></pre>
+       [[ 0.24196227, -1.91328024, -1.72491783, -0.56228753],
+        [-1.01283112,  0.31424733, -0.90802408, -1.4123037 ],
+        [ 1.46564877, -0.2257763 ,  0.0675282 , -1.42474819]]])</code></pre>
 </div>
 </div>
 <p>Create an array of zeros:</p>
