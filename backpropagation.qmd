@@ -20,4 +20,19 @@ $$\displaystyle \frac{\partial z}{\partial x} =
 2t \times 1 = 2(x + y)$$
 
 
-## Computational Graph
+## Backpropagation
+
+Recall that a neural network has many parameters. The training of a neural network is moving its parameters against their partial derivatives to decrease its loss.
+
+Suppose there is a weight $w_i$, we can use numerical differentiation to calculate its partial derivative:
+
+$$\displaystyle \frac{\partial L}{\partial w_i} =
+\frac{f(\dots, w_i + h, \dots) - f(\dots, w_i, \dots)}{h}$$
+
+Now with chain rule, we can calculate the derivative like this:
+
+$$\frac{\partial L}{\partial w_i} =
+\frac{\partial L}{\partial a} \frac{\partial a}{\partial b}
+\dots \frac{\partial z}{\partial w_i}$$
+
+$a, b, \dots, z$ are some intermediate values.
