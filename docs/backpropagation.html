@@ -126,7 +126,7 @@
 <h2 id="toc-title">Table of contents</h2>
 <ul>
 <li><a href="#chain-rule" id="toc-chain-rule" class="nav-link active" data-scroll-target="#chain-rule"> <span class="header-section-number">6.1</span> Chain Rule</a></li>
-<li><a href="#computational-graph" id="toc-computational-graph" class="nav-link" data-scroll-target="#computational-graph"> <span class="header-section-number">6.2</span> Computational Graph</a></li>
+<li><a href="#backpropagation" id="toc-backpropagation" class="nav-link" data-scroll-target="#backpropagation"> <span class="header-section-number">6.2</span> Backpropagation</a></li>
 </ul>
 </nav>
     </div>
@@ -148,8 +148,17 @@
 \frac{\partial z}{\partial t} \frac{\partial t}{\partial x} =
 2t \times 1 = 2(x + y)\]</span></p>
 </section>
-<section id="computational-graph" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="computational-graph"><span class="header-section-number">6.2</span> Computational Graph</h2>
+<section id="backpropagation" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="backpropagation"><span class="header-section-number">6.2</span> Backpropagation</h2>
+<p>Recall that a neural network has many parameters. The training of a neural network is moving its parameters against their partial derivatives to decrease its loss.</p>
+<p>Suppose there is a weight <span class="math inline">\(w_i\)</span>, we can use numerical differentiation to calculate its partial derivative:</p>
+<p><span class="math display">\[\displaystyle \frac{\partial L}{\partial w_i} =
+\frac{f(\dots, w_i + h, \dots) - f(\dots, w_i, \dots)}{h}\]</span></p>
+<p>Now with chain rule, we can calculate the derivative like this:</p>
+<p><span class="math display">\[\frac{\partial L}{\partial w_i} =
+\frac{\partial L}{\partial a} \frac{\partial a}{\partial b}
+\dots \frac{\partial z}{\partial w_i}\]</span></p>
+<p><span class="math inline">\(a, b, \dots, z\)</span> are some intermediate values.</p>
 
 
 

@@ -109,7 +109,7 @@
     "href": "numpy.html#create-array",
     "title": "5  NumPy Basics",
     "section": "5.1 Create Array",
-    "text": "5.1 Create Array\nLet’s start with the functions we have been using.\nTurn a list into an array:\n\nnp.array([[1, 2], [3, 4]])\n\narray([[1, 2],\n       [3, 4]])\n\n\nGenerate a sequence of numbers:\n\nnp.arange(1, 10, 2)\n\narray([1, 3, 5, 7, 9])\n\n\nCreate an array of random numbers from the standard normal distribution:\n\nnp.random.randn(2, 3, 4)\n\narray([[[ 1.09485782, -1.08511051, -0.1573411 , -0.05313678],\n        [-1.37126018,  1.60640433, -0.32342164,  1.39133452],\n        [ 0.30453443, -0.86261922, -0.79395193, -2.13685246]],\n\n       [[-1.11975391, -1.15269915,  1.51627099,  1.59278561],\n        [-3.63899824, -0.67449815,  0.89620141, -0.07492994],\n        [-0.39003593, -0.91193676, -0.4966296 ,  0.4714741 ]]])\n\n\nCreate an array of zeros:\n\nnp.zeros(3)\n\narray([0., 0., 0.])\n\n\n\nnp.zeros_like(np.random.randn(2, 3))\n\narray([[0., 0., 0.],\n       [0., 0., 0.]])"
+    "text": "5.1 Create Array\nLet’s start with the functions we have been using.\nTurn a list into an array:\n\nnp.array([[1, 2], [3, 4]])\n\narray([[1, 2],\n       [3, 4]])\n\n\nGenerate a sequence of numbers:\n\nnp.arange(1, 10, 2)\n\narray([1, 3, 5, 7, 9])\n\n\nCreate an array of random numbers from the standard normal distribution:\n\nnp.random.randn(2, 3, 4)\n\narray([[[-0.92477184, -2.26948808,  2.54167326,  0.00517827],\n        [ 0.78229111, -0.43620912, -0.6798231 ,  0.03862639],\n        [ 0.64316663, -2.38032911,  0.10360743,  0.89795626]],\n\n       [[-0.30840195, -1.63198649, -2.04626454, -0.29117825],\n        [-1.55213865, -0.31103211,  0.19447813, -0.38360148],\n        [ 1.84507323, -2.50866089,  0.88516093, -1.8342528 ]]])\n\n\nCreate an array of zeros:\n\nnp.zeros(3)\n\narray([0., 0., 0.])\n\n\n\nnp.zeros_like(np.random.randn(2, 3))\n\narray([[0., 0., 0.],\n       [0., 0., 0.]])"
   },
   {
     "objectID": "numpy.html#data-types",
@@ -154,10 +154,10 @@
     "text": "6.1 Chain Rule\nLet’s first recall the chain rule for differentiation.\nSuppose we have\n\\[x + y = t\\]\n\\[t^2 = z\\]\nThe chain rule states that\n\\[\\displaystyle \\frac{\\partial z}{\\partial x} =\n\\frac{\\partial z}{\\partial t} \\frac{\\partial t}{\\partial x} =\n2t \\times 1 = 2(x + y)\\]"
   },
   {
-    "objectID": "backpropagation.html#computational-graph",
-    "href": "backpropagation.html#computational-graph",
+    "objectID": "backpropagation.html#backpropagation",
+    "href": "backpropagation.html#backpropagation",
     "title": "6  Backpropagation",
-    "section": "6.2 Computational Graph",
-    "text": "6.2 Computational Graph"
+    "section": "6.2 Backpropagation",
+    "text": "6.2 Backpropagation\nRecall that a neural network has many parameters. The training of a neural network is moving its parameters against their partial derivatives to decrease its loss.\nSuppose there is a weight \\(w_i\\), we can use numerical differentiation to calculate its partial derivative:\n\\[\\displaystyle \\frac{\\partial L}{\\partial w_i} =\n\\frac{f(\\dots, w_i + h, \\dots) - f(\\dots, w_i, \\dots)}{h}\\]\nNow with chain rule, we can calculate the derivative like this:\n\\[\\frac{\\partial L}{\\partial w_i} =\n\\frac{\\partial L}{\\partial a} \\frac{\\partial a}{\\partial b}\n\\dots \\frac{\\partial z}{\\partial w_i}\\]\n\\(a, b, \\dots, z\\) are some intermediate values."
   }
 ]
