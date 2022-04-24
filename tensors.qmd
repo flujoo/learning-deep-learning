@@ -1,0 +1,19 @@
+# Tensors
+
+Tensors are an abstraction of vectors or matrices. It is a data representation used in deep learning.
+
+A tensor has three attributes:
+
+1. number of axes (rank)
+2. shape
+3. data type
+
+For example, vectors are rank-1 or 1D tensors. The following is a vector:
+
+```python
+array([12, 3, 6, 14, 7])
+```
+
+Please note that this is a 5-dimensional vector. It has only one axis, but has five dimensions along this axis.
+
+Scalars are rank-0 tensors. Matrices are rank-2 tensors.

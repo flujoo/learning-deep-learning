@@ -12,6 +12,7 @@ book:
     - numerical-differentiation.qmd
     - numpy.qmd
     - backpropagation.qmd
+    - tensors.qmd
 
 format:
   html:
