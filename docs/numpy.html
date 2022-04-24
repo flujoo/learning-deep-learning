@@ -180,6 +180,11 @@
   <a href="./backpropagation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Backpropagation</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tensors.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Tensors</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -188,11 +193,12 @@
         <nav id="TOC" role="doc-toc">
 <h2 id="toc-title">Table of contents</h2>
 <ul>
-<li><a href="#create-array" id="toc-create-array" class="nav-link active" data-scroll-target="#create-array"> <span class="header-section-number">5.1</span> Create Array</a></li>
+<li><a href="#creation" id="toc-creation" class="nav-link active" data-scroll-target="#creation"> <span class="header-section-number">5.1</span> Creation</a></li>
 <li><a href="#data-types" id="toc-data-types" class="nav-link" data-scroll-target="#data-types"> <span class="header-section-number">5.2</span> Data Types</a></li>
 <li><a href="#array-structure" id="toc-array-structure" class="nav-link" data-scroll-target="#array-structure"> <span class="header-section-number">5.3</span> Array Structure</a></li>
 <li><a href="#arithmetic-operations" id="toc-arithmetic-operations" class="nav-link" data-scroll-target="#arithmetic-operations"> <span class="header-section-number">5.4</span> Arithmetic Operations</a></li>
 <li><a href="#matrix-multiplication" id="toc-matrix-multiplication" class="nav-link" data-scroll-target="#matrix-multiplication"> <span class="header-section-number">5.5</span> Matrix Multiplication</a></li>
+<li><a href="#reshaping" id="toc-reshaping" class="nav-link" data-scroll-target="#reshaping"> <span class="header-section-number">5.6</span> Reshaping</a></li>
 </ul>
 </nav>
     </div>
@@ -209,8 +215,8 @@
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s take a break and learn some NumPy basics.</p>
-<section id="create-array" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="create-array"><span class="header-section-number">5.1</span> Create Array</h2>
+<section id="creation" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="creation"><span class="header-section-number">5.1</span> Creation</h2>
 <p>Let’s start with the functions we have been using.</p>
 <p>Turn a list into an array:</p>
 <div class="cell" data-execution_count="2">
@@ -367,6 +373,32 @@
 <div class="cell-output-display" data-execution_count="21">
 <pre><code>array([[ 3],
        [-3]])</code></pre>
+</div>
+</div>
+</section>
+<section id="reshaping" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="reshaping"><span class="header-section-number">5.6</span> Reshaping</h2>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode" id="cb40"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">2</span>], [<span class="dv">3</span>, <span class="dv">4</span>]])</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display" data-execution_count="22">
+<pre><code>array([[1, 2],
+       [3, 4]])</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode" id="cb42"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>a.reshape((<span class="dv">4</span>, <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display" data-execution_count="23">
+<pre><code>array([[1],
+       [2],
+       [3],
+       [4]])</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="24">
+<div class="sourceCode" id="cb44"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>a.reshape((<span class="dv">1</span>, <span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display" data-execution_count="24">
+<pre><code>array([[1, 2, 3, 4]])</code></pre>
 </div>
 </div>
 

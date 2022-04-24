@@ -105,11 +105,11 @@
     "text": "import numpy as np\n\n# set seed\nnp.random.seed(42)\nLet’s take a break and learn some NumPy basics."
   },
   {
-    "objectID": "numpy.html#create-array",
-    "href": "numpy.html#create-array",
+    "objectID": "numpy.html#creation",
+    "href": "numpy.html#creation",
     "title": "5  NumPy Basics",
-    "section": "5.1 Create Array",
-    "text": "5.1 Create Array\nLet’s start with the functions we have been using.\nTurn a list into an array:\n\nnp.array([[1, 2], [3, 4]])\n\narray([[1, 2],\n       [3, 4]])\n\n\nGenerate a sequence of numbers:\n\nnp.arange(1, 10, 2)\n\narray([1, 3, 5, 7, 9])\n\n\nCreate an array of random numbers from the standard normal distribution:\n\nnp.random.randn(2, 3, 4)\n\narray([[[ 0.49671415, -0.1382643 ,  0.64768854,  1.52302986],\n        [-0.23415337, -0.23413696,  1.57921282,  0.76743473],\n        [-0.46947439,  0.54256004, -0.46341769, -0.46572975]],\n\n       [[ 0.24196227, -1.91328024, -1.72491783, -0.56228753],\n        [-1.01283112,  0.31424733, -0.90802408, -1.4123037 ],\n        [ 1.46564877, -0.2257763 ,  0.0675282 , -1.42474819]]])\n\n\nCreate an array of zeros:\n\nnp.zeros(3)\n\narray([0., 0., 0.])\n\n\n\nnp.zeros_like(np.random.randn(2, 3))\n\narray([[0., 0., 0.],\n       [0., 0., 0.]])"
+    "section": "5.1 Creation",
+    "text": "5.1 Creation\nLet’s start with the functions we have been using.\nTurn a list into an array:\n\nnp.array([[1, 2], [3, 4]])\n\narray([[1, 2],\n       [3, 4]])\n\n\nGenerate a sequence of numbers:\n\nnp.arange(1, 10, 2)\n\narray([1, 3, 5, 7, 9])\n\n\nCreate an array of random numbers from the standard normal distribution:\n\nnp.random.randn(2, 3, 4)\n\narray([[[ 0.49671415, -0.1382643 ,  0.64768854,  1.52302986],\n        [-0.23415337, -0.23413696,  1.57921282,  0.76743473],\n        [-0.46947439,  0.54256004, -0.46341769, -0.46572975]],\n\n       [[ 0.24196227, -1.91328024, -1.72491783, -0.56228753],\n        [-1.01283112,  0.31424733, -0.90802408, -1.4123037 ],\n        [ 1.46564877, -0.2257763 ,  0.0675282 , -1.42474819]]])\n\n\nCreate an array of zeros:\n\nnp.zeros(3)\n\narray([0., 0., 0.])\n\n\n\nnp.zeros_like(np.random.randn(2, 3))\n\narray([[0., 0., 0.],\n       [0., 0., 0.]])"
   },
   {
     "objectID": "numpy.html#data-types",
@@ -140,6 +140,13 @@
     "text": "5.5 Matrix Multiplication\n\nx = np.array([1, 2])\nW = np.array([[1, 2, 3], [2, 3, 4]])\nnp.dot(x, W)\n\narray([ 5,  8, 11])\n\n\nFor batch:\n\nxs = np.array([[1, 2], [-1, -2]])\nnp.dot(xs, W)\n\narray([[  5,   8,  11],\n       [ -5,  -8, -11]])\n\n\nNote that the input to a neural network is usually a batch. The implementation of the batch version of some functions may be different. For example, below is the function calculating the sum of a vector:\n\nnp.sum(x)\n\n3\n\n\nYou can not just apply it to a batch of vectors:\n\nnp.sum(xs)\n\n0\n\n\nInstead, you should use:\n\nnp.sum(xs, axis=1, keepdims=True)\n\narray([[ 3],\n       [-3]])"
   },
   {
+    "objectID": "numpy.html#reshaping",
+    "href": "numpy.html#reshaping",
+    "title": "5  NumPy Basics",
+    "section": "5.6 Reshaping",
+    "text": "5.6 Reshaping\n\na = np.array([[1, 2], [3, 4]])\na\n\narray([[1, 2],\n       [3, 4]])\n\n\n\na.reshape((4, 1))\n\narray([[1],\n       [2],\n       [3],\n       [4]])\n\n\n\na.reshape((1, 4))\n\narray([[1, 2, 3, 4]])"
+  },
+  {
     "objectID": "backpropagation.html",
     "href": "backpropagation.html",
     "title": "6  Backpropagation",
@@ -159,5 +166,12 @@
     "title": "6  Backpropagation",
     "section": "6.2 Backpropagation",
     "text": "6.2 Backpropagation\nRecall that a neural network has many parameters. The training of a neural network is moving its parameters against their partial derivatives to decrease its loss.\nSuppose there is a weight \\(w_i\\), we can use numerical differentiation to calculate its partial derivative:\n\\[\\displaystyle \\frac{\\partial L}{\\partial w_i} =\n\\frac{f(\\dots, w_i + h, \\dots) - f(\\dots, w_i, \\dots)}{h}\\]\nNow with chain rule, we can calculate the derivative like this:\n\\[\\frac{\\partial L}{\\partial w_i} =\n\\frac{\\partial L}{\\partial a} \\frac{\\partial a}{\\partial b}\n\\dots \\frac{\\partial z}{\\partial w_i}\\]\n\\(a, b, \\dots, z\\) are some intermediate values."
+  },
+  {
+    "objectID": "tensors.html",
+    "href": "tensors.html",
+    "title": "7  Tensors",
+    "section": "",
+    "text": "A tensor has three attributes:\n\nnumber of axes (rank)\nshape\ndata type\n\nFor example, vectors are rank-1 or 1D tensors. The following is a vector:\narray([12, 3, 6, 14, 7])\nPlease note that this is a 5-dimensional vector. It has only one axis, but has five dimensions along this axis.\nScalars are rank-0 tensors. Matrices are rank-2 tensors."
   }
 ]
