@@ -136,3 +136,19 @@ Instead, you should use:
 ```{python}
 np.sum(xs, axis=1, keepdims=True)
 ```
+
+
+## Reshape
+
+```{python}
+a = np.array([[1, 2], [3, 4]])
+a
+```
+
+```{python}
+a.reshape((4, 1))
+```
+
+```{python}
+a.reshape((1, 4))
+```
