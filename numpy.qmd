@@ -10,7 +10,7 @@ np.random.seed(42)
 Let's take a break and learn some NumPy basics.
 
 
-## Create Array
+## Creation
 
 Let's start with the functions we have been using.
 
@@ -138,7 +138,7 @@ np.sum(xs, axis=1, keepdims=True)
 ```
 
 
-## Reshape
+## Reshaping
 
 ```{python}
 a = np.array([[1, 2], [3, 4]])
