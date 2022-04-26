@@ -13,6 +13,7 @@ book:
     - numpy.qmd
     - backpropagation.qmd
     - tensors.qmd
+    - keras.qmd
 
 format:
   html:
