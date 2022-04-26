@@ -3,7 +3,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="quarto-0.9.230">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Learning Deep Learning - 2&nbsp; Learning</title>
+  <title>Learning Deep Learning - 9&nbsp; TensorFlow</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -83,8 +83,7 @@
   <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
   <script src="site_libs/quarto-search/fuse.min.js"></script>
   <script src="site_libs/quarto-search/quarto-search.js"></script>
-  <link href="./mnist.html" rel="next">
-  <link href="./neural-networks.html" rel="prev">
+  <link href="./keras.html" rel="prev">
   <script src="site_libs/quarto-html/quarto.js"></script>
   <script src="site_libs/quarto-html/popper.min.js"></script>
   <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -123,7 +122,7 @@
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Learning</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">TensorFlow</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -158,7 +157,7 @@
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./learning.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Learning</span></a>
+  <a href="./learning.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Learning</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -193,7 +192,7 @@
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tensorflow.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">TensorFlow</span></a>
+  <a href="./tensorflow.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">TensorFlow</span></a>
   </div>
 </li>
     </ul>
@@ -204,9 +203,10 @@
         <nav id="TOC" role="doc-toc">
 <h2 id="toc-title">Table of contents</h2>
 <ul>
-<li><a href="#loss-functions" id="toc-loss-functions" class="nav-link active" data-scroll-target="#loss-functions"> <span class="header-section-number">2.1</span> Loss Functions</a></li>
-<li><a href="#gradient-method" id="toc-gradient-method" class="nav-link" data-scroll-target="#gradient-method"> <span class="header-section-number">2.2</span> Gradient Method</a></li>
-<li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation"> <span class="header-section-number">2.3</span> Implementation</a></li>
+<li><a href="#constants" id="toc-constants" class="nav-link active" data-scroll-target="#constants"> <span class="header-section-number">9.1</span> Constants</a></li>
+<li><a href="#variables" id="toc-variables" class="nav-link" data-scroll-target="#variables"> <span class="header-section-number">9.2</span> Variables</a></li>
+<li><a href="#operations" id="toc-operations" class="nav-link" data-scroll-target="#operations"> <span class="header-section-number">9.3</span> Operations</a></li>
+<li><a href="#differentiation" id="toc-differentiation" class="nav-link" data-scroll-target="#differentiation"> <span class="header-section-number">9.4</span> Differentiation</a></li>
 </ul>
 </nav>
     </div>
@@ -214,100 +214,116 @@
 <main class="content" id="quarto-document-content">
 <header id="title-block-header" class="quarto-title-block default">
 
-<div class="quarto-title"><h1 class="title d-none d-lg-block display-7"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Learning</span></h1></div></header>
+<div class="quarto-title"><h1 class="title d-none d-lg-block display-7"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">TensorFlow</span></h1></div></header>
 
 <div class="cell" data-execution_count="1">
-<div class="sourceCode" id="cb1"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tensorflow <span class="im">as</span> tf</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>tf.random.set_seed(<span class="dv">42</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The learning of a neural network is the process of finding the weights that produce some minimum value of its loss function.</p>
-<section id="loss-functions" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="loss-functions"><span class="header-section-number">2.1</span> Loss Functions</h2>
-<p>The loss function of a neural network is a negative indicator of its accuracy. It measures the distance between the supervised data and the output of the neural network.</p>
-<p>Here we introduce two loss functions.</p>
-<p><strong>Mean squared error</strong>:</p>
-<p><span class="math display">\[\displaystyle E =
-\sum_{k} (y_k - t_k)^2\]</span></p>
-<p>The meanings of these symbols:</p>
-<ul>
-<li><span class="math inline">\(k\)</span> is the dimension of the data.</li>
-<li><span class="math inline">\(y_k\)</span> is the output.</li>
-<li><span class="math inline">\(t_k\)</span> is the supervised data.</li>
-</ul>
-<p><strong>Cross entropy error</strong>:</p>
-<p><span class="math display">\[\displaystyle E =
-- \sum_{k} t_k \: \mathrm{log} \, y_k\]</span></p>
-<p>Let’s try to understand the cross entropy error. For one-hot data, <span class="math inline">\(t_{some} = 1\)</span> for some dimension, while <span class="math inline">\(t_k = 0\)</span> for other dimensions. Therefore, the formula can be reduced to <span class="math inline">\(E = - \mathrm{log} \, y_{some}\)</span>, and the larger <span class="math inline">\(y_{some}\)</span> is, the lower <span class="math inline">\(E\)</span> will be. When <span class="math inline">\(y_{some} = 1\)</span>, <span class="math inline">\(E = 0\)</span>. This makes perfect sense.</p>
-</section>
-<section id="gradient-method" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="gradient-method"><span class="header-section-number">2.2</span> Gradient Method</h2>
-<p>Gradient method is the algorithm for finding the weights that produce some minimum value of a neural network’s loss function.</p>
-<p>Gradient? Let’s first recall the definition of <strong>derivative</strong>:</p>
-<p><span class="math display">\[\displaystyle \frac{\mathrm{d}f(x)}{\mathrm{d}x}
-= \lim\limits_{h \to 0} \frac{f(x+h) - f(x)}{h}\]</span></p>
-<p>For a multivariate function, we can find its derivative with respect to some variable by treating other variables as constants. The outcome is called <strong>partial derivative</strong>.</p>
-<p>Finally, the <strong>gradient</strong> of a function is the vector of its partial derivatives:</p>
-<p><span class="math display">\[\nabla f = \left(\frac{\partial f}{\partial x_0},
-\frac{\partial f}{\partial x_1}, \dots \right)\]</span></p>
-<p>The process of finding the derivative(s) of a function is called <strong>differentiation</strong>.</p>
-<p>Gradient method steps:</p>
-<ol type="1">
-<li>Suppose you are at a point of <span class="math inline">\(f\)</span>.</li>
-<li>Calculate the gradient of this point.</li>
-<li>Move a little bit against the gradient.</li>
-<li>Repeat step 2 and 3 until reach a local minimum.</li>
-</ol>
-</section>
-<section id="implementation" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="implementation"><span class="header-section-number">2.3</span> Implementation</h2>
-<p>First, let’s implement a function for calculating derivative:</p>
+<p>Some TensorFlow basics.</p>
+<section id="constants" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="constants"><span class="header-section-number">9.1</span> Constants</h2>
 <div class="cell" data-execution_count="2">
-<div class="sourceCode" id="cb2"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_derivative(f, x):</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  h <span class="op">=</span> <span class="fl">1e-4</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  d <span class="op">=</span> (f(x<span class="op">+</span>h) <span class="op">-</span> f(x<span class="op">-</span>h)) <span class="op">/</span> (<span class="dv">2</span><span class="op">*</span>h)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tf.ones((<span class="dv">2</span>, <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display" data-execution_count="2">
+<pre><code>&lt;tf.Tensor: shape=(2, 3), dtype=float32, numpy=
+array([[1., 1., 1.],
+       [1., 1., 1.]], dtype=float32)&gt;</code></pre>
 </div>
-<p>Try it on <span class="math inline">\(f(x) = x^2\)</span> at <span class="math inline">\(x = 2\)</span>. Its derivative is <span class="math inline">\(f'(x) = 2x\)</span>, so the outcome should be <span class="math inline">\(4\)</span>:</p>
+</div>
 <div class="cell" data-execution_count="3">
-<div class="sourceCode" id="cb3"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>get_derivative(<span class="kw">lambda</span> x: x<span class="op">**</span><span class="dv">2</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>tf.random.normal((<span class="dv">2</span>, <span class="dv">3</span>), mean<span class="op">=</span><span class="dv">100</span>, stddev<span class="op">=</span><span class="dv">15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display" data-execution_count="3">
-<pre><code>4.000000000004</code></pre>
+<pre><code>&lt;tf.Tensor: shape=(2, 3), dtype=float32, numpy=
+array([[104.912025,  87.36061 , 104.791504],
+       [ 78.88672 ,  64.17911 ,  84.411285]], dtype=float32)&gt;</code></pre>
 </div>
 </div>
-<p>Second, let’s implement a function for calculating gradient:</p>
+<p>Constants are not assignable:</p>
 <div class="cell" data-execution_count="4">
-<div class="sourceCode" id="cb5"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_gradient(f, x):</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  e <span class="op">=</span> <span class="fl">1e-4</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  g <span class="op">=</span> np.zeros_like(x, <span class="bu">float</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> i, _ <span class="kw">in</span> <span class="bu">enumerate</span>(x):</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    h <span class="op">=</span> np.zeros_like(x, <span class="bu">float</span>)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    h[i] <span class="op">=</span> e</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    g[i] <span class="op">=</span> (f(x<span class="op">+</span>h) <span class="op">-</span> f(x<span class="op">-</span>h)) <span class="op">/</span> (<span class="dv">2</span><span class="op">*</span>e)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> tf.zeros((<span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display" data-execution_count="4">
+<pre><code>&lt;tf.Tensor: shape=(2, 3), dtype=float32, numpy=
+array([[0., 0., 0.],
+       [0., 0., 0.]], dtype=float32)&gt;</code></pre>
 </div>
-<p>Try it on <span class="math inline">\(f(x_0, x_1) = x_0^2 + x_1^2\)</span> at <span class="math inline">\(x_0 = 2\)</span> and <span class="math inline">\(x_1 = 3\)</span>. Its gradient is <span class="math inline">\((2x_0, 2x_1)\)</span>, so the outcome should be <span class="math inline">\((4, 6)\)</span>:</p>
+</div>
 <div class="cell" data-execution_count="5">
-<div class="sourceCode" id="cb6"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>get_gradient(<span class="kw">lambda</span> x: x[<span class="dv">0</span>]<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> x[<span class="dv">1</span>]<span class="op">**</span><span class="dv">2</span>, np.array([<span class="dv">2</span>, <span class="dv">3</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display" data-execution_count="5">
-<pre><code>array([4., 6.])</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>x[<span class="dv">0</span>, <span class="dv">0</span>] <span class="op">=</span> <span class="fl">1.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-error">
+<pre><code>TypeError: 'tensorflow.python.framework.ops.EagerTensor' object does not support item assignment</code></pre>
 </div>
 </div>
-<p>Finally, let’s implement the gradient method:</p>
+</section>
+<section id="variables" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="variables"><span class="header-section-number">9.2</span> Variables</h2>
 <div class="cell" data-execution_count="6">
-<div class="sourceCode" id="cb8"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gradient_method(f, x, rate<span class="op">=</span><span class="fl">0.1</span>, step<span class="op">=</span><span class="dv">100</span>):</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(step):</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    g <span class="op">=</span> get_gradient(f, x)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> x <span class="op">-</span> g<span class="op">*</span>rate</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> tf.Variable(tf.zeros((<span class="dv">3</span>, <span class="dv">2</span>)))</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display" data-execution_count="6">
+<pre><code>&lt;tf.Variable 'Variable:0' shape=(3, 2) dtype=float32, numpy=
+array([[0., 0.],
+       [0., 0.],
+       [0., 0.]], dtype=float32)&gt;</code></pre>
 </div>
-<p><code>rate</code> is <strong>learning rate</strong>.</p>
-<p>Find the <span class="math inline">\((x_0, x_1)\)</span> where <span class="math inline">\(f(x_0, x_1) = x_0^2 + x_1^2\)</span> has its minimum:</p>
+</div>
 <div class="cell" data-execution_count="7">
-<div class="sourceCode" id="cb9"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>gradient_method(<span class="kw">lambda</span> x: x[<span class="dv">0</span>]<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> x[<span class="dv">1</span>]<span class="op">**</span><span class="dv">2</span>, np.array([<span class="op">-</span><span class="dv">3</span>, <span class="dv">4</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>x[<span class="dv">0</span>, <span class="dv">0</span>].assign(<span class="fl">1.</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display" data-execution_count="7">
-<pre><code>array([-6.11110793e-10,  8.14814391e-10])</code></pre>
+<pre><code>&lt;tf.Variable 'UnreadVariable' shape=(3, 2) dtype=float32, numpy=
+array([[1., 0.],
+       [0., 0.],
+       [0., 0.]], dtype=float32)&gt;</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode" id="cb14"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>x.assign_add(tf.ones((<span class="dv">3</span>, <span class="dv">2</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display" data-execution_count="8">
+<pre><code>&lt;tf.Variable 'UnreadVariable' shape=(3, 2) dtype=float32, numpy=
+array([[2., 1.],
+       [1., 1.],
+       [1., 1.]], dtype=float32)&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="operations" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="operations"><span class="header-section-number">9.3</span> Operations</h2>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode" id="cb16"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> tf.constant([[<span class="dv">1</span>, <span class="dv">2</span>], [<span class="dv">3</span>, <span class="dv">4</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode" id="cb17"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">*</span> x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display" data-execution_count="10">
+<pre><code>&lt;tf.Tensor: shape=(2, 2), dtype=int32, numpy=
+array([[ 1,  4],
+       [ 9, 16]], dtype=int32)&gt;</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode" id="cb19"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>tf.matmul(x, x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display" data-execution_count="11">
+<pre><code>&lt;tf.Tensor: shape=(2, 2), dtype=int32, numpy=
+array([[ 7, 10],
+       [15, 22]], dtype=int32)&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="differentiation" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="differentiation"><span class="header-section-number">9.4</span> Differentiation</h2>
+<p><code>tf.GradientTape()</code> is used for differentiation.</p>
+<p>Suppose we want to calculate the derivative of <span class="math inline">\(y = x^2\)</span> at <span class="math inline">\(x = 3\)</span>:</p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode" id="cb21"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> tf.constant(<span class="fl">3.0</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> tf.GradientTape() <span class="im">as</span> g:</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  g.watch(x)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  y <span class="op">=</span> x <span class="op">*</span> x</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>dy <span class="op">=</span> g.gradient(y, x)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>dy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display" data-execution_count="12">
+<pre><code>&lt;tf.Tensor: shape=(), dtype=float32, numpy=6.0&gt;</code></pre>
 </div>
 </div>
 
@@ -393,14 +409,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./neural-networks.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Neural Networks</span></span>
+      <a href="./keras.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Keras</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./mnist.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">MNIST</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
