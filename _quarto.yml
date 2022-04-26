@@ -14,6 +14,7 @@ book:
     - backpropagation.qmd
     - tensors.qmd
     - keras.qmd
+    - tensorflow.qmd
 
 format:
   html:

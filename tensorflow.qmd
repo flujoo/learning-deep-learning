@@ -1,0 +1,80 @@
+# TensorFlow
+
+```{python}
+import tensorflow as tf
+tf.random.set_seed(42)
+```
+
+Some TensorFlow basics.
+
+
+## Constants
+
+```{python}
+tf.ones((2, 3))
+```
+
+```{python}
+tf.random.normal((2, 3), mean=100, stddev=15)
+```
+
+Constants are not assignable:
+
+```{python}
+x = tf.zeros((2, 3))
+x
+```
+
+```{python}
+#| error: true
+x[0, 0] = 1.
+```
+
+
+## Variables
+
+```{python}
+x = tf.Variable(tf.zeros((3, 2)))
+x
+```
+
+```{python}
+x[0, 0].assign(1.)
+```
+
+```{python}
+x.assign_add(tf.ones((3, 2)))
+```
+
+
+## Operations
+
+```{python}
+x = tf.constant([[1, 2], [3, 4]])
+```
+
+```{python}
+x * x
+```
+
+```{python}
+tf.matmul(x, x)
+```
+
+
+## Differentiation
+
+`tf.GradientTape()` is used for differentiation.
+
+Suppose we want to calculate the derivative of $y = x^2$ at $x = 3$:
+
+```{python}
+x = tf.constant(3.0)
+
+with tf.GradientTape() as g:
+  g.watch(x)
+  y = x * x
+
+dy = g.gradient(y, x)
+dy
+```
