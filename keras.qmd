@@ -56,7 +56,7 @@ history = model.fit(
 history.history
 ```
 
-Evaluate the model on the validation data:
+Evaluate the model on the test data:
 
 ```{python}
 model.evaluate(
