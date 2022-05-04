@@ -1,5 +1,5 @@
 # Learning Deep Learning
 
-Turning my learning of deep learning into a textbook.
+Turn my learning of deep learning into a textbook.
 
 Read the book on <https://flujoo.github.io/learning-deep-learning/>.
